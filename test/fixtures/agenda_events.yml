@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2016-11-01 15:34:39
+  time: MyString
+  details: MyText
+  congress: one
+
+two:
+  date: 2016-11-01 15:34:39
+  time: MyString
+  details: MyText
+  congress: two
