@@ -1,5 +1,8 @@
 class CongressesController < ApplicationController
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+
   before_action :set_congress, only: [:show, :update, :destroy]
+  before_action :authenticate
 
   # GET /congresses
   def index
@@ -18,7 +21,10 @@ class CongressesController < ApplicationController
             },
             :agenda_events => {
                 :except => [:created_at, :updated_at, :congress_id, :id]
-            }
+            },
+            :congress_infos => {
+                :except => [:created_at, :updated_at, :congress_id, :id]
+            },
         },
         :except => [:created_at, :updated_at, :id])
   end
@@ -45,6 +51,24 @@ class CongressesController < ApplicationController
   # DELETE /congresses/1
   def destroy
     @congress.destroy
+  end
+
+  protected
+
+  # Authenticate the user with token based authentication
+  def authenticate
+    authenticate_token || render_unauthorized
+  end
+
+  def authenticate_token
+    authenticate_with_http_token do |token, options|
+      @current_user = User.find_by(api_key: token)
+    end
+  end
+
+  def render_unauthorized(realm = "Application")
+    self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
+    render json: 'Bad credentials', status: :unauthorized
   end
 
   private
@@ -77,11 +101,18 @@ class CongressesController < ApplicationController
           :title,
           :content
         ]
+      ],
+      agenda_events_attributes: [
+          :date,
+          :time,
+          :details
+      ],
+      congress_infos_attributes: [
+          :title,
+          :content,
+          :color,
+          :position
       ]
     )
-  end
-
-  def hotels_params
-    congress_params[:hotels]
   end
 end
