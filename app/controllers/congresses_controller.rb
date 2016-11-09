@@ -25,6 +25,9 @@ class CongressesController < ApplicationController
             :congress_infos => {
                 :except => [:created_at, :updated_at, :congress_id, :id]
             },
+            :news => {
+                :except => [:created_at, :updated_at, :congress_id, :id]
+            }
         },
         :except => [:created_at, :updated_at, :id])
   end
@@ -105,6 +108,7 @@ class CongressesController < ApplicationController
       ],
       agenda_events_attributes: [
           :date,
+          :icon,
           :time,
           :details
       ],
@@ -113,6 +117,11 @@ class CongressesController < ApplicationController
           :content,
           :color,
           :position
+      ],
+      news_attributes: [
+          :date,
+          :title,
+          :content
       ]
     )
   end
