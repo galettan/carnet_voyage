@@ -25,7 +25,7 @@ class CongressesController < ApplicationController
             :congress_infos => {
                 :except => [:created_at, :updated_at, :congress_id, :id]
             },
-            :news => {
+            :breaking_infos => {
                 :except => [:created_at, :updated_at, :congress_id, :id]
             }
         },
