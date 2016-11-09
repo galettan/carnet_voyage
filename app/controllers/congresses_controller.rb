@@ -81,7 +81,7 @@ class CongressesController < ApplicationController
   def congress_params
     params.permit(
       :name,
-      :welcome_message
+      :welcome_message,
       :subtitle,
       :place,
       :date_from,
