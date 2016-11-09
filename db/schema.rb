@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103075747) do
+ActiveRecord::Schema.define(version: 20161109082416) do
 
   create_table "agenda_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "date"
@@ -41,10 +41,11 @@ ActiveRecord::Schema.define(version: 20161103075747) do
     t.datetime "date_to"
     t.string   "host_company"
     t.string   "host_logo_url"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "color"
     t.integer  "template_id"
+    t.text     "welcome_message", limit: 65535
   end
 
   create_table "hotel_various_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
