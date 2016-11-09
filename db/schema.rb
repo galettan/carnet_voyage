@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109083726) do
+ActiveRecord::Schema.define(version: 20161109085111) do
 
   create_table "agenda_events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "date"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 20161109083726) do
     t.datetime "updated_at",                null: false
     t.string   "icon"
     t.index ["congress_id"], name: "index_agenda_events_on_congress_id", using: :btree
+  end
+
+  create_table "breaking_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "date"
+    t.string   "title"
+    t.text     "content",     limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "congress_id"
+    t.index ["congress_id"], name: "index_breaking_infos_on_congress_id", using: :btree
   end
 
   create_table "congress_infos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -73,16 +83,6 @@ ActiveRecord::Schema.define(version: 20161109083726) do
     t.index ["congress_id"], name: "index_hotels_on_congress_id", using: :btree
   end
 
-  create_table "news", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "date"
-    t.string   "title"
-    t.text     "content",     limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "congress_id"
-    t.index ["congress_id"], name: "index_news_on_congress_id", using: :btree
-  end
-
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "api_key"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 20161109083726) do
   end
 
   add_foreign_key "agenda_events", "congresses"
+  add_foreign_key "breaking_infos", "congresses"
   add_foreign_key "congress_infos", "congresses"
   add_foreign_key "hotel_various_infos", "hotels"
-  add_foreign_key "news", "congresses"
 end

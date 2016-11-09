@@ -118,7 +118,7 @@ class CongressesController < ApplicationController
           :color,
           :position
       ],
-      news_attributes: [
+      breaking_infos_attributes: [
           :date,
           :title,
           :content
